@@ -14,7 +14,7 @@ This repository provides:
 
 # File Descriptions
 
-main_FREP1.R: Main script for running simulations and performing parameter estimations.
+<a href=https://github.com/lambsUSP/FREP1/blob/main/main_FREP1.R>main_FREP1.R</a>: Main script for running simulations and performing parameter estimations.
 
 loading_data_experiment.R: Loads experimental data.
 
