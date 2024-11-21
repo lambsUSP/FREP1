@@ -38,4 +38,4 @@ The main script <a href=https://github.com/lambsUSP/FREP1/blob/main/main_FREP1.R
 
 # Authors
 
-Rodrigo M. Corder and John M. Marshall.
+<a href=https://orcid.org/0000-0002-8929-2200>Rodrigo M. Corder</a> and <a href=https://orcid.org/0000-0003-0603-7341>John M. Marshall</a>.
