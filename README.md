@@ -34,7 +34,7 @@ This repository provides:
 
 # Getting Started
 
-The main script main_FREP1.R loads the other functions and performe simulations and parameter estimations.
+The main script <a href=https://github.com/lambsUSP/FREP1/blob/main/main_FREP1.R>main_FREP1.R</a> loads the other functions and performe simulations and parameter estimations.
 
 # Authors
 
