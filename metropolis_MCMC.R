@@ -26,6 +26,8 @@ metropolis_MCMC <- function(data, numGen, genotype, startvalue, iterations, scal
     parameters[] = proposal
     ll.proposal = obj_func(data,numGen,genotype,parameters)
     
+    # print(round(c(i,proposal,ll.proposal,ll),2))
+    
     # select or not new proposal according to the Metropolis alg rules
     probab = exp(ll.proposal - ll)
     if (runif(1) < probab){chain[i+1,] = c(proposal,ll.proposal)
@@ -43,3 +45,4 @@ metropolis_MCMC <- function(data, numGen, genotype, startvalue, iterations, scal
   
   return(chain)
 }
+
