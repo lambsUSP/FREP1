@@ -2,7 +2,7 @@
 # maternal_deposition ----
 ###############################################################################
 
-maternal_deposition<- function(tMatrix,genotype,parameters){
+maternal_deposition <- function(tMatrix,genotype,parameters){
   
   # selecting individuals
   aux.A    = grep("A",    genotype, value=TRUE)
@@ -33,12 +33,17 @@ maternal_deposition<- function(tMatrix,genotype,parameters){
     assign(names(parameters)[i],as.numeric(parameters[i]))  
   }
   
+  ################################################################################
+  # Drive action ----
+  ################################################################################
+  
+  # Condition for drive action: Cas9 (A) + gRNA (B) + CFPL (D)
+  # Drive action: GFP+L (D) into GFP+Q (C) or NHEJ (E) ----
   r.neutral = 1 - r.driving - r.NHEJ
   
-  
-  ##############################################################################
-  # maternal deposition ----
-  ##############################################################################
+  # ################################################################################
+  # # maternal deposition ----
+  # ################################################################################
   
   # saving temporally
   temp.tMatrix = tMatrix
@@ -48,36 +53,64 @@ maternal_deposition<- function(tMatrix,genotype,parameters){
   tMatrix[,,aux.ABD]           = tMatrix[,,aux.ABD]            - p.1* r.driving   *temp.tMatrix[,,aux.ABD]
   tMatrix[aux.A,,aux.aBC]      = tMatrix[aux.A,,aux.aBC]       + p.1* r.driving   *temp.tMatrix[aux.A,,aux.aBD]
   tMatrix[aux.A,,aux.aBD]      = tMatrix[aux.A,,aux.aBD]       - p.1* r.driving   *temp.tMatrix[aux.A,,aux.aBD]
+  tMatrix[,aux.A,aux.aBC]      = tMatrix[,aux.A,aux.aBC]       + p.1* r.driving   *temp.tMatrix[,aux.A,aux.aBD]
+  tMatrix[,aux.A,aux.aBD]      = tMatrix[,aux.A,aux.aBD]       - p.1* r.driving   *temp.tMatrix[,aux.A,aux.aBD]
   
   # maternal deposition conversion GFP+L (BD) -> NHEJ (BE)
   tMatrix[,,aux.ABE]           = tMatrix[,,aux.ABE]            + p.1* r.NHEJ      *temp.tMatrix[,,aux.ABD]
   tMatrix[,,aux.ABD]           = tMatrix[,,aux.ABD]            - p.1* r.NHEJ      *temp.tMatrix[,,aux.ABD]
   tMatrix[aux.A,,aux.aBE]      = tMatrix[aux.A,,aux.aBE]       + p.1* r.NHEJ      *temp.tMatrix[aux.A,,aux.aBD]
   tMatrix[aux.A,,aux.aBD]      = tMatrix[aux.A,,aux.aBD]       - p.1* r.NHEJ      *temp.tMatrix[aux.A,,aux.aBD]
+  tMatrix[,aux.A,aux.aBE]      = tMatrix[,aux.A,aux.aBE]       + p.1* r.NHEJ      *temp.tMatrix[,aux.A,aux.aBD]
+  tMatrix[,aux.A,aux.aBD]      = tMatrix[,aux.A,aux.aBD]       - p.1* r.NHEJ      *temp.tMatrix[,aux.A,aux.aBD]
   
   # maternal deposition conversion GFP+L (CD) -> GFP+Q (CC)
   tMatrix[aux.B,,aux.ACC]      = tMatrix[aux.B,,aux.ACC]      + p.1* r.driving   *temp.tMatrix[aux.B,,aux.ACD]
   tMatrix[aux.B,,aux.ACD]      = tMatrix[aux.B,,aux.ACD]      - p.1* r.driving   *temp.tMatrix[aux.B,,aux.ACD]
+  tMatrix[,aux.B,aux.ACC]      = tMatrix[,aux.B,aux.ACC]      + p.1* r.driving   *temp.tMatrix[,aux.B,aux.ACD]
+  tMatrix[,aux.B,aux.ACD]      = tMatrix[,aux.B,aux.ACD]      - p.1* r.driving   *temp.tMatrix[,aux.B,aux.ACD]
+  tMatrix[aux.A,aux.B,aux.aCC] = tMatrix[aux.A,aux.B,aux.aCC] + p.1* r.driving   *temp.tMatrix[aux.A,aux.B,aux.aCD]
+  tMatrix[aux.A,aux.B,aux.aCD] = tMatrix[aux.A,aux.B,aux.aCD] - p.1* r.driving   *temp.tMatrix[aux.A,aux.B,aux.aCD]
+  tMatrix[aux.B,aux.A,aux.aCC] = tMatrix[aux.B,aux.A,aux.aCC] + p.1* r.driving   *temp.tMatrix[aux.B,aux.A,aux.aCD]
+  tMatrix[aux.B,aux.A,aux.aCD] = tMatrix[aux.B,aux.A,aux.aCD] - p.1* r.driving   *temp.tMatrix[aux.B,aux.A,aux.aCD]
   tMatrix[aux.AB,,aux.aCC]     = tMatrix[aux.AB,,aux.aCC]     + p.1* r.driving   *temp.tMatrix[aux.AB,,aux.aCD]
   tMatrix[aux.AB,,aux.aCD]     = tMatrix[aux.AB,,aux.aCD]     - p.1* r.driving   *temp.tMatrix[aux.AB,,aux.aCD]
+  tMatrix[,aux.AB,aux.aCC]     = tMatrix[,aux.AB,aux.aCC]     + p.1* r.driving   *temp.tMatrix[,aux.AB,aux.aCD]
+  tMatrix[,aux.AB,aux.aCD]     = tMatrix[,aux.AB,aux.aCD]     - p.1* r.driving   *temp.tMatrix[,aux.AB,aux.aCD]
   
   # maternal deposition conversion GFP+L (CD) -> NHEJ (CE)
   tMatrix[aux.B,,aux.ACE]      = tMatrix[aux.B,,aux.ACE]      + p.1* r.NHEJ      *temp.tMatrix[aux.B,,aux.ACD]
   tMatrix[aux.B,,aux.ACD]      = tMatrix[aux.B,,aux.ACD]      - p.1* r.NHEJ      *temp.tMatrix[aux.B,,aux.ACD]
+  tMatrix[,aux.B,aux.ACE]      = tMatrix[,aux.B,aux.ACE]      + p.1* r.NHEJ      *temp.tMatrix[,aux.B,aux.ACD]
+  tMatrix[,aux.B,aux.ACD]      = tMatrix[,aux.B,aux.ACD]      - p.1* r.NHEJ      *temp.tMatrix[,aux.B,aux.ACD]
+  tMatrix[aux.A,aux.B,aux.aCE] = tMatrix[aux.A,aux.B,aux.aCE] + p.1* r.NHEJ      *temp.tMatrix[aux.A,aux.B,aux.aCD]
+  tMatrix[aux.A,aux.B,aux.aCD] = tMatrix[aux.A,aux.B,aux.aCD] - p.1* r.NHEJ      *temp.tMatrix[aux.A,aux.B,aux.aCD]
+  tMatrix[aux.B,aux.A,aux.aCE] = tMatrix[aux.B,aux.A,aux.aCE] + p.1* r.NHEJ      *temp.tMatrix[aux.B,aux.A,aux.aCD]
+  tMatrix[aux.B,aux.A,aux.aCD] = tMatrix[aux.B,aux.A,aux.aCD] - p.1* r.NHEJ      *temp.tMatrix[aux.B,aux.A,aux.aCD]
   tMatrix[aux.AB,,aux.aCE]     = tMatrix[aux.AB,,aux.aCE]     + p.1* r.NHEJ      *temp.tMatrix[aux.AB,,aux.aCD]
   tMatrix[aux.AB,,aux.aCD]     = tMatrix[aux.AB,,aux.aCD]     - p.1* r.NHEJ      *temp.tMatrix[aux.AB,,aux.aCD]
+  tMatrix[,aux.AB,aux.aCE]     = tMatrix[,aux.AB,aux.aCE]     + p.1* r.NHEJ      *temp.tMatrix[,aux.AB,aux.aCD]
+  tMatrix[,aux.AB,aux.aCD]     = tMatrix[,aux.AB,aux.aCD]     - p.1* r.NHEJ      *temp.tMatrix[,aux.AB,aux.aCD]
   
   # maternal deposition conversion GFP+L (DE) -> NHEJ (EE)
   tMatrix[aux.B,,aux.ADE]      = tMatrix[aux.B,,aux.ADE]      - p.1 *temp.tMatrix[aux.B,,aux.ADE]
+  tMatrix[,aux.B,aux.ADE]      = tMatrix[,aux.B,aux.ADE]      - p.1 *temp.tMatrix[,aux.B,aux.ADE]
+  tMatrix[aux.A,aux.B,aux.aDE] = tMatrix[aux.A,aux.B,aux.aDE] - p.1 *temp.tMatrix[aux.A,aux.B,aux.aDE]
+  tMatrix[aux.B,aux.A,aux.aDE] = tMatrix[aux.B,aux.A,aux.aDE] - p.1 *temp.tMatrix[aux.B,aux.A,aux.aDE]
   tMatrix[aux.AB,,aux.aDE]     = tMatrix[aux.AB,,aux.aDE]     - p.1 *temp.tMatrix[aux.AB,,aux.aDE]
+  tMatrix[,aux.AB,aux.aDE]     = tMatrix[,aux.AB,aux.aDE]     - p.1 *temp.tMatrix[,aux.AB,aux.aDE]
   
   # maternal deposition conversion GFP+L (DD) -> NHEJ (EE)
   tMatrix[aux.B,,aux.ADD]      = tMatrix[aux.B,,aux.ADD]      - p.1 *temp.tMatrix[aux.B,,aux.ADD]
+  tMatrix[,aux.B,aux.ADD]      = tMatrix[,aux.B,aux.ADD]      - p.1 *temp.tMatrix[,aux.B,aux.ADD]
+  tMatrix[aux.A,aux.B,aux.aDD] = tMatrix[aux.A,aux.B,aux.aDD] - p.1 *temp.tMatrix[aux.A,aux.B,aux.aDD]
+  tMatrix[aux.B,aux.A,aux.aDD] = tMatrix[aux.B,aux.A,aux.aDD] - p.1 *temp.tMatrix[aux.B,aux.A,aux.aDD]
   tMatrix[aux.AB,,aux.aDD]     = tMatrix[aux.AB,,aux.aDD]     - p.1 *temp.tMatrix[aux.AB,,aux.aDD]
+  tMatrix[,aux.AB,aux.aDD]     = tMatrix[,aux.AB,aux.aDD]     - p.1 *temp.tMatrix[,aux.AB,aux.aDD]
   
-  ##############################################################################
+  ################################################################################
   #  Unviable individuals ----
-  ##############################################################################
+  ################################################################################  
   
   # NHEJ/NHEJ are assumed to be unviable
   tMatrix[,,aux.EE]  = 0
