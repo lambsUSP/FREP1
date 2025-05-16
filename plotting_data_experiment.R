@@ -8,18 +8,16 @@ plotting_data_experiment <- function(
     model.sto=NULL
     ) {
   
-  # jpeg(("FREP1.jpeg"), width = 7, height = 7, units = 'in', res = 250)
-  tiff(("FREP1.tiff"), width = 7, height = 7, units = 'in', res = 200)
+  jpeg(("FREP1.jpeg"), width = 6, height = 9, units = 'in', res = 150)
   
   # aux for the length of the x-axis
   aux.x      = length(model$LD)-1
   aux.x.data = length(data[,c("data_screened_cage1")])-1
   
   # plotting data stratified by sex
-  par(oma = c(0, 0, 0, 0), # outer margins
-      mai = c(0.32, 0.4, 0.3, 0.2), # inner margins for each panel
-      mgp = c(1.5, 0.5, 0))
-  layout(matrix(c(1,2,3,4,5,6,7,8,9), nrow = 3, ncol = 3, byrow = F))
+  par(mai = c(0.5, 0.5, 0.4, 0.2), mgp = c(1.5,0.5,0))
+  # layout(matrix(c(1:8), nrow = 4, ncol = 2, byrow = F))
+  layout(matrix(c(1,2,3,7,4,5,6,7), nrow = 4, ncol = 2, byrow = F))
   
   ##############################################################################
   # LDonly ----
@@ -34,7 +32,7 @@ plotting_data_experiment <- function(
     col = "magenta"
   )
   
-  mtext("A", side = 3, adj = -0.2, line = 1.0)
+  mtext("A", side = 3, adj = -0.15, line = 1.0)
   
   if (!is.null(model.sto)) {
     for (j in 1:length(model.sto)) {
@@ -76,7 +74,7 @@ plotting_data_experiment <- function(
     col = "magenta"
   )
   
-  mtext("B", side = 3, adj = -0.2, line = 1.0)
+  mtext("B", side = 3, adj = -0.15, line = 1.0)
   
   if (!is.null(model.sto)) {
     for (j in 1:length(model.sto)) {
@@ -110,7 +108,7 @@ plotting_data_experiment <- function(
     col = "magenta"
   )
   
-  mtext("C", side = 3, adj = -0.2, line = 1.0)
+  mtext("C", side = 3, adj = -0.15, line = 1.0)
   
   if (!is.null(model.sto)) {
     for (j in 1:length(model.sto)) {
@@ -138,13 +136,13 @@ plotting_data_experiment <- function(
     ylim = 100*c(0,1),
     xlim = c(0,aux.x),
     ylab = "L224 allele freq (%)",
-    xlab = "",
+    xlab = "Generations",
     main = "",
     pch  = 19,
     col = "magenta"
   )
   
-  mtext("D", side = 3, adj = -0.2, line = 1.0)
+  mtext("D", side = 3, adj = -0.15, line = 1.0)
   
   if (!is.null(model.sto)) {
     for (j in 1:length(model.sto)) {
@@ -178,7 +176,7 @@ plotting_data_experiment <- function(
     col = "magenta"
   )
   
-  mtext("E", side = 3, adj = -0.2, line = 1.0)
+  mtext("E", side = 3, adj = -0.15, line = 1.0)
   
   if (!is.null(model.sto)) {
     for (j in 1:length(model.sto)) {
@@ -212,7 +210,7 @@ plotting_data_experiment <- function(
     col = "magenta"
   )
   
-  mtext("F", side = 3, adj = -0.2, line = 1.0)
+  mtext("F", side = 3, adj = -0.15, line = 1.0)
   
   if (!is.null(model.sto)) {
     for (j in 1:length(model.sto)) {
@@ -234,75 +232,6 @@ plotting_data_experiment <- function(
   }
   
   # ##############################################################################
-  # LDonly + LDGFPL ----
-  plot(
-    0,100*(data[1,c("data_phenotype_LDonly_cage1")]+data[1,c("data_phenotype_LDGFPL_cage1")])/data$data_screened_cage1[1],
-    ylim = 100*c(0,1),
-    xlim = c(0,aux.x),
-    ylab = "Mosquitoes with linked drive (%)",
-    xlab = "",
-    main = "",
-    pch  = 19,
-    col = "magenta"
-  )
-  
-  mtext("G", side = 3, adj = -0.2, line = 1.0)
-  
-  if (!is.null(model.sto)) {
-    for (j in 1:length(model.sto)) {
-      lines(c(0:aux.x),100*(model.sto[[j]]$LDonly+model.sto[[j]]$LDGFPL),type = "l",col = "lightblue")  
-    }
-  }  
-  
-  lines(c(0:aux.x.data),100*(data[,c("data_phenotype_LDonly_cage1")]+data[,c("data_phenotype_LDGFPL_cage1")])/data$data_screened_cage1,type = "l",col = "magenta")
-  lines(c(0:aux.x.data),100*(data[,c("data_phenotype_LDonly_cage2")]+data[,c("data_phenotype_LDGFPL_cage2")])/data$data_screened_cage2,type = "l",col = "magenta")
-  lines(c(0:aux.x.data),100*(data[,c("data_phenotype_LDonly_cage3")]+data[,c("data_phenotype_LDGFPL_cage3")])/data$data_screened_cage3,type = "l",col = "magenta")
-  points(
-    0,100*(data[1,c("data_phenotype_LDonly_cage1")]+data[1,c("data_phenotype_LDGFPL_cage1")])/data$data_screened_cage1[1],
-    pch  = 19,
-    col = "magenta"
-  )
-  
-  if (!is.null(model)) {
-    lines(c(0:aux.x),100*(model$LDonly+model$LDGFPL),type = "l",col = "blue")
-  }
-  
-  # ##############################################################################
-  # LDonly + LDGFPL ----
-  plot(
-    0,100*(data[1,c("data_phenotype_GFPLonly_cage1")]+data[1,c("data_phenotype_LDGFPL_cage1")])/data$data_screened_cage1[1],
-    ylim = 100*c(0,1),
-    xlim = c(0,aux.x),
-    ylab = "Mosquitoes with GFP (%)",
-    xlab = "",
-    main = "",
-    pch  = 19,
-    col = "magenta"
-  )
-  
-  mtext("H", side = 3, adj = -0.2, line = 1.0)
-  
-  if (!is.null(model.sto)) {
-    for (j in 1:length(model.sto)) {
-      lines(c(0:aux.x),100*(model.sto[[j]]$GFPLonly+model.sto[[j]]$LDGFPL),type = "l",col = "lightblue")  
-    }
-  }  
-  
-  lines(c(0:aux.x.data),100*(data[,c("data_phenotype_GFPLonly_cage1")]+data[,c("data_phenotype_LDGFPL_cage1")])/data$data_screened_cage1,type = "l",col = "magenta")
-  lines(c(0:aux.x.data),100*(data[,c("data_phenotype_GFPLonly_cage2")]+data[,c("data_phenotype_LDGFPL_cage2")])/data$data_screened_cage2,type = "l",col = "magenta")
-  lines(c(0:aux.x.data),100*(data[,c("data_phenotype_GFPLonly_cage3")]+data[,c("data_phenotype_LDGFPL_cage3")])/data$data_screened_cage3,type = "l",col = "magenta")
-  points(
-    0,100*(data[1,c("data_phenotype_GFPLonly_cage1")]+data[1,c("data_phenotype_LDGFPL_cage1")])/data$data_screened_cage1[1],
-    pch  = 19,
-    col = "magenta"
-  )
-  
-  if (!is.null(model)) {
-    lines(c(0:aux.x),100*(model$GFPLonly+model$LDGFPL),type = "l",col = "blue")
-  }
-  
-  
-  # ##############################################################################
   # V9 ----
   plot(
     0,100*data[1,c("data_phenotype_V9_cage1")]/data$data_screened_cage1[1],
@@ -315,7 +244,7 @@ plotting_data_experiment <- function(
     col = "magenta"
   )
   
-  mtext("I", side = 3, adj = -0.2, line = 1.0)
+  mtext("G", side = 3, adj = -0.068, line = 1.0)
   
   if (!is.null(model.sto)) {
     for (j in 1:length(model.sto)) {
