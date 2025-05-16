@@ -16,7 +16,7 @@ experiment_sim_model <- function(
   }
   
   ################################################################################
-  # Transition matrix ----
+  # Transition matrix -----
   ################################################################################
   
   # tMatrix for allelic elimination experiments
