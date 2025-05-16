@@ -1,4 +1,8 @@
-function(genotype,parameters){
+###############################################################################
+# tMatrix ----
+###############################################################################
+
+tMatrix_func <- function(genotype,parameters){
   
   # parameters
   for (i in 1:length(parameters)) {
