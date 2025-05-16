@@ -1,7 +1,3 @@
-setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
-
-rm(list=ls())
-
 library(lhs)
 library(foreach)
 library(doParallel)
@@ -95,12 +91,12 @@ chain = metropolis_MCMC(
   numGen,
   genotype,
   startvalue = parameters,
-  iterations = 1e4,
+  iterations = 1e5,
   scale = c(0.02)
 )
 
 # acceptance ratio
-burnin = 5e2
+burnin = 1e3
 acceptance_ratio = 1-mean(duplicated(chain[-(1:burnin),]))
 acceptance_ratio
 
