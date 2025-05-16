@@ -1,8 +1,4 @@
-###############################################################################
-# tMatrix ----
-###############################################################################
-
-tMatrix_func<- function(genotype,parameters){
+function(genotype,parameters){
   
   # parameters
   for (i in 1:length(parameters)) {
@@ -46,6 +42,14 @@ tMatrix_func<- function(genotype,parameters){
       num.offs[] = 0
     }
   }
+  
+  ################################################################################
+  # Fitness cost ----
+  ################################################################################
+  
+  # aux.BB  = grep("BB",  genotype, value=TRUE)
+  # tMatrix.F[,,aux.BB] = f.BB*tMatrix.F[,,aux.BB] # LD/LD
+  # tMatrix.M[,,aux.BB] = f.BB*tMatrix.M[,,aux.BB] # LD/LD
   
   ################################################################################
   # Drive action ----
