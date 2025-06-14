@@ -1,4 +1,4 @@
-# Driving a protective single allelic variant of the mosquito FREP1 gene to combat malaria
+# Driving a protective allele of the mosquito FREP1 gene to combat malaria
 
 This repository contains R code for modeling the dynamics of a protective single-allelic variant of the mosquito FREP1 gene across discrete generations.
 
