@@ -8,7 +8,7 @@ This repository provides:
 
 1. Scripts for simulating multi-generational non-overlapping dynamics of the FREP1 gene variant in mosquito populations under laboratory conditions.
 
-2. Parameter estimation methods using Baesyan methods and experimental data.
+2. Parameter estimation using Baesyan methods and experimental data.
 
 3. Tools for visualizing simulation results.
 
@@ -26,7 +26,7 @@ This repository provides:
 
 <a href=https://github.com/lambsUSP/FREP1/blob/main/experiment_sim_model.R>experiment_sim_model.R</a>: Simulates multiple non-overlapping generations.
 
-<a href=https://github.com/lambsUSP/FREP1/blob/main/mobj_func.R>obj_func.R</a>: Computes the likelihood function for parameter estimation, comparing observed and simulated data.
+<a href=https://github.com/lambsUSP/FREP1/blob/main/obj_func.R>obj_func.R</a>: Computes the likelihood function for parameter estimation, comparing observed and simulated data.
 
 <a href=https://github.com/lambsUSP/FREP1/blob/main/metropolis_MCMC.R>metropolis_MCMC.R</a>: Implements the Metropolis algorithm for parameter estimation using Markov Chain Monte Carlo (MCMC) methods.
 
