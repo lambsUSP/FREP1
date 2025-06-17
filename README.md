@@ -8,7 +8,7 @@ This repository provides:
 
 1. Scripts for simulating multi-generational non-overlapping dynamics of the FREP1 gene variant in mosquito populations under laboratory conditions.
 
-2. Parameter estimation using Baesyan methods and experimental data.
+2. Parameter estimation using Bayesian methods and experimental data.
 
 3. Tools for visualizing simulation results.
 
